@@ -1,37 +1,9 @@
 import type { ReactNode } from "react";
 
-type IconName =
-  | "bell"
-  | "search"
-  | "play"
-  | "file"
-  | "bookmark"
-  | "chart"
-  | "clock"
-  | "user"
-  | "chevron"
-  | "eye"
-  | "grid"
-  | "target"
-  | "accessibility"
-  | "check"
-  | "lock"
-  | "external"
-  | "folder"
-  | "menu";
+type IconName = "bell" | "search" | "arrow" | "levels" | "clock" | "file" | "star";
 
-function Icon({
-  name,
-  filled = false,
-  className = "",
-}: {
-  name: IconName;
-  filled?: boolean;
-  className?: string;
-}) {
-  const fill = filled ? "currentColor" : "none";
-
-  const shapes: Record<IconName, ReactNode> = {
+function Icon({ name }: { name: IconName }) {
+  const paths: Record<IconName, ReactNode> = {
     bell: (
       <>
         <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
@@ -44,22 +16,15 @@ function Icon({
         <path d="m16 16 4.5 4.5" />
       </>
     ),
-    play: (
+    arrow: (
       <>
-        <circle cx="12" cy="12" r="9" />
-        <path d="m10 8 6 4-6 4z" fill={filled ? "white" : "currentColor"} stroke="none" />
+        <path d="M4 12h16" />
+        <path d="m14 5 7 7-7 7" />
       </>
     ),
-    file: (
+    levels: (
       <>
-        <path d="M6 3.5h8l4 4V21H6z" />
-        <path d="M14 3.5V8h4M9 12h6M9 16h6" />
-      </>
-    ),
-    bookmark: <path d="M6 4h12v17l-6-4-6 4z" fill={fill} />,
-    chart: (
-      <>
-        <path d="M5 20v-6h3v6M11 20V9h3v11M17 20V4h3v16" fill={fill} />
+        <path d="M4 20v-5M9 20V9M14 20V4M19 20v-8" />
       </>
     ),
     clock: (
@@ -68,67 +33,21 @@ function Icon({
         <path d="M12 7v5l3 2" />
       </>
     ),
-    user: (
+    file: (
       <>
-        <circle cx="12" cy="8" r="3.5" fill={fill} />
-        <path d="M4.5 20c.5-3.4 3.2-5.3 7.5-5.3s7 1.9 7.5 5.3z" fill={fill} />
+        <path d="M6 3.5h8l4 4V21H6z" />
+        <path d="M14 3.5V8h4" />
       </>
     ),
-    chevron: <path d="m9 5 7 7-7 7" />,
-    eye: (
-      <>
-        <path d="M2.5 12s3.2-7 9.5-7 9.5 7 9.5 7-3.2 7-9.5 7-9.5-7-9.5-7Z" />
-        <circle cx="12" cy="12" r="3" />
-      </>
-    ),
-    grid: (
-      <>
-        <rect x="3" y="3" width="8" height="8" rx="1" />
-        <rect x="13" y="3" width="8" height="8" rx="1" />
-        <rect x="3" y="13" width="8" height="8" rx="1" />
-        <rect x="13" y="13" width="8" height="8" rx="1" />
-      </>
-    ),
-    target: (
-      <>
-        <circle cx="11" cy="13" r="8" />
-        <circle cx="11" cy="13" r="4" />
-        <path d="m14 10 7-7M17 3h4v4" />
-      </>
-    ),
-    accessibility: (
-      <>
-        <circle cx="12" cy="4.5" r="2" />
-        <path d="m5 8 7 2 7-2M12 10l-1 5-4 5m5-5 4 5m-4-5 4-2" />
-      </>
-    ),
-    check: <path d="m5 12 4 4L19 6" />,
-    lock: (
-      <>
-        <rect x="5" y="10" width="14" height="11" rx="2" />
-        <path d="M8 10V7a4 4 0 1 1 8 0v3M12 14v3" />
-      </>
-    ),
-    external: (
-      <>
-        <path d="M14 4h6v6M20 4l-9 9" />
-        <path d="M18 13v6H5V6h6" />
-      </>
-    ),
-    folder: (
-      <path d="M3 6h7l2 2h9v11H3z" fill={fill} />
-    ),
-    menu: (
-      <>
-        <path d="M4 7h16M4 12h16M4 17h16" />
-      </>
+    star: (
+      <path d="m12 2.8 2.8 5.7 6.3.9-4.6 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.4l6.3-.9z" />
     ),
   };
 
   return (
     <svg
       aria-hidden="true"
-      className={`icon ${className}`}
+      className={`icon icon-${name}`}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -136,453 +55,204 @@ function Icon({
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      {shapes[name]}
+      {paths[name]}
     </svg>
   );
 }
 
-function SectionTitle({ number, children }: { number: string; children: ReactNode }) {
+function VertexMark() {
   return (
-    <h2 className="section-title">
-      <span>{number}</span>
-      {children}
-    </h2>
+    <svg className="vertex-mark" viewBox="0 0 40 34" aria-hidden="true">
+      <path d="M1 1h38L20 33 1 1Z" fill="currentColor" />
+      <path d="M10 7h17L19 24 10 7Z" fill="#fffdfb" />
+      <path d="m24 7-6 10 5 1 6-11h-5Z" fill="currentColor" />
+    </svg>
   );
 }
 
-const primaryColors = [
-  ["Primary 500", "#F97316", "primary-500"],
-  ["Primary 400", "#FB923C", "primary-400"],
-  ["Primary 300", "#FDBA74", "primary-300"],
-  ["Primary 200", "#FED7AA", "primary-200"],
-  ["Primary 100", "#FFF1E8", "primary-100"],
-];
-
-const neutralColors = [
-  ["Neutral 900", "#0F172A", "neutral-900"],
-  ["Neutral 700", "#334155", "neutral-700"],
-  ["Neutral 500", "#64748B", "neutral-500"],
-  ["Neutral 300", "#CBD5E1", "neutral-300"],
-  ["Neutral 200", "#E2E8F0", "neutral-200"],
-  ["Neutral 100", "#F1F5F9", "neutral-100"],
-  ["Neutral 50", "#FAFAFC", "neutral-50"],
-  ["White", "#FFFFFF", "white"],
-];
-
-const typeScale = [
-  ["Display 1", "Playfair Display", "48 / 56", "Bold", "Page titles", "display-one"],
-  ["Display 2", "Playfair Display", "36 / 44", "Bold", "Section titles", "display-two"],
-  ["Heading 1", "Inter", "28 / 36", "Semi Bold", "Card titles", "heading-one"],
-  ["Heading 2", "Inter", "22 / 30", "Semi Bold", "Sub section", "heading-two"],
-  ["Heading 3", "Inter", "18 / 26", "Medium", "Small titles", "heading-three"],
-  ["Body Large", "Inter", "16 / 24", "Regular", "Body copy", "body-large"],
-  ["Body", "Inter", "14 / 20", "Regular", "Supporting text", "body-normal"],
-  ["Small", "Inter", "12 / 16", "Regular", "Captions, meta", "body-small"],
-];
-
-const spacing = [
-  ["4", "0.25rem"],
-  ["8", "0.5rem"],
-  ["12", "0.75rem"],
-  ["16", "1rem"],
-  ["24", "1.5rem"],
-  ["32", "2rem"],
-  ["40", "2.5rem"],
-  ["48", "3rem"],
-  ["64", "4rem"],
-];
-
-const radius = [
-  ["4px", "(xs)", "4px"],
-  ["8px", "(sm)", "8px"],
-  ["12px", "(md)", "12px"],
-  ["16px", "(lg)", "16px"],
-  ["24px", "(xl)", "24px"],
-  ["Full", "(circle)", "50%"],
-];
-
-const shadows = [
-  ["Sm", "0 1px 2px 0", "rgba(15, 23, 42, 0.05)"],
-  ["Md", "0 4px 12px -2px", "rgba(15, 23, 42, 0.08)"],
-  ["Lg", "0 12px 24px -4px", "rgba(15, 23, 42, 0.10)"],
-  ["Xl", "0 20px 40px -8px", "rgba(15, 23, 42, 0.12)"],
-];
-
-const outlineIcons: IconName[] = [
-  "bell",
-  "search",
-  "play",
-  "file",
-  "bookmark",
-  "chart",
-  "clock",
-  "user",
-  "chevron",
-];
-
-function BrandMark({ compact = false }: { compact?: boolean }) {
+function Brand() {
   return (
-    <span className={`brand ${compact ? "brand-compact" : ""}`}>
-      <span className="brand-symbol" aria-hidden="true">
-        <span />
-      </span>
+    <a className="brand" href="#top" aria-label="Vertex home">
+      <VertexMark />
       <span>Vertex</span>
-    </span>
+    </a>
   );
 }
 
-function ColorSwatches({
-  colors,
-}: {
-  colors: typeof primaryColors | typeof neutralColors;
-}) {
+function ProfileAvatar() {
   return (
-    <div className="swatch-grid">
-      {colors.map(([name, value, className]) => (
-        <div className="swatch" key={name}>
-          <div className={`swatch-color ${className}`} />
-          <span>{name}</span>
-          <code>{value}</code>
-        </div>
-      ))}
-    </div>
+    <svg
+      className="profile-avatar"
+      viewBox="0 0 52 52"
+      role="img"
+      aria-label="Profile"
+    >
+      <defs>
+        <clipPath id="avatar-clip">
+          <circle cx="26" cy="26" r="26" />
+        </clipPath>
+        <linearGradient id="avatar-bg" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0" stopColor="#f3e7dd" />
+          <stop offset="1" stopColor="#d9c6b8" />
+        </linearGradient>
+      </defs>
+      <g clipPath="url(#avatar-clip)">
+        <rect width="52" height="52" fill="url(#avatar-bg)" />
+        <path d="M11 53c1-11 7-17 15-17s14 6 15 17" fill="#292827" />
+        <path d="M18 16c0-7 14-9 17 2l-1 13c-2 7-13 8-16 0z" fill="#28201e" />
+        <path d="M20 17c0-5 12-6 13 1l-1 12c-1 5-10 5-12 0z" fill="#d89c7f" />
+        <path d="M19 18c1-8 12-10 16-2l-1 5c-3-1-6-4-7-6-2 3-5 5-9 6z" fill="#302521" />
+        <path d="M22 25h1m6 0h1" stroke="#382923" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M24 31c1 1 3 1 4 0" stroke="#9b5549" strokeWidth="1" strokeLinecap="round" />
+        <path d="M20 38h12l-6 8z" fill="#f3f0ed" />
+      </g>
+    </svg>
   );
 }
 
-function ButtonExample({
-  kind,
-  children,
-  disabled = false,
-}: {
-  kind: "primary" | "secondary" | "tertiary" | "text";
-  children: ReactNode;
-  disabled?: boolean;
-}) {
-  return (
-    <button className={`button-example ${kind}`} type="button" disabled={disabled}>
-      {children}
-      {kind === "tertiary" && <Icon name="external" />}
-      {kind === "text" && <Icon name="play" />}
-    </button>
-  );
+function CourseLogo({ kind }: { kind: "next" | "docker" | "typescript" }) {
+  if (kind === "docker") {
+    return (
+      <svg className="course-logo docker-logo" viewBox="0 0 88 74" role="img" aria-label="Docker">
+        <g fill="#1597dc" stroke="#101820" strokeWidth="2">
+          <path d="M19 28h10v10H19zM31 28h10v10H31zM43 28h10v10H43zM31 16h10v10H31zM43 16h10v10H43zM55 16h10v10H55zM43 4h10v10H43z" />
+          <path d="M7 40h58c4-7 10-10 17-8-2 4-2 7-1 10-4 3-8 4-13 3-7 15-20 23-38 23C15 68 5 60 3 48z" />
+        </g>
+        <path d="M15 50h7m6 0h7m6 0h7m6 0h6M34 59h6" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (kind === "typescript") {
+    return (
+      <span className="course-logo typescript-logo" aria-label="TypeScript">TS</span>
+    );
+  }
+
+  return <span className="course-logo next-logo" aria-label="Next.js">N</span>;
 }
 
-function DesignCard({
-  title,
-  children,
-  className = "",
-}: {
-  title: string;
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <section className={`panel ${className}`}>
-      <SectionTitle number={title.slice(0, 2)}>{title.slice(3)}</SectionTitle>
-      {children}
-    </section>
-  );
-}
+const courses = [
+  {
+    kind: "next" as const,
+    title: "Next.js for Production",
+    description: "Build scalable, high-performance web applications with Next.js.",
+    level: "Intermediate",
+    duration: "18h 24m",
+    modules: "12 modules",
+  },
+  {
+    kind: "docker" as const,
+    title: "Docker Essentials",
+    description: "Containerize applications and streamline your development workflow.",
+    level: "Beginner",
+    duration: "10h 12m",
+    modules: "8 modules",
+  },
+  {
+    kind: "typescript" as const,
+    title: "TypeScript Deep Dive",
+    description: "Go beyond the basics and write safer, more expressive code.",
+    level: "Intermediate",
+    duration: "14h 36m",
+    modules: "10 modules",
+  },
+];
 
 export default function Home() {
   return (
-    <main className="design-page">
-      <section className="panel hero">
-        <div className="hero-intro">
-          <BrandMark />
-          <h1>Design System</h1>
+    <main className="site-shell" id="top">
+      <div className="site-frame">
+        <header className="site-header">
+          <Brand />
+          <nav className="main-nav" aria-label="Main navigation">
+            <a href="#courses">Courses</a>
+            <a href="#courses">My Learning</a>
+          </nav>
+          <div className="header-actions">
+            <button type="button" className="notification-button" aria-label="Notifications">
+              <Icon name="bell" />
+            </button>
+            <ProfileAvatar />
+          </div>
+        </header>
+
+        <section className="hero-section" aria-labelledby="hero-title">
+          <span className="hero-eyebrow">Intelligent Learning</span>
+          <h1 id="hero-title">
+            Search your learning
+            <br className="desktop-break" /> in plain English.
+          </h1>
           <p>
-            A unified design language for Vertex learning platform. Clean,
-            modern and focused on clarity, consistency and intuitive learning
-            experiences.
+            Vertex understands what you want to learn and
+            <br className="desktop-break" /> finds the exact lessons across all your courses.
           </p>
-          <div className="version">VERSION 1.0 <span>•</span> MAY 2025</div>
-        </div>
-        <div className="hero-colors">
-          <SectionTitle number="01">Colors</SectionTitle>
-          <h3 className="mini-heading">Primary</h3>
-          <ColorSwatches colors={primaryColors} />
-          <h3 className="mini-heading neutral-heading">Neutral</h3>
-          <ColorSwatches colors={neutralColors} />
-        </div>
-      </section>
-
-      <DesignCard title="02 Typography" className="typography panel">
-        <div className="font-specimen">
-          <span className="specimen display-font">Ag</span>
-          <div>
-            <h3 className="playfair">Playfair Display</h3>
-            <p>Elegant <i>•</i> Readable <i>•</i> Timeless</p>
+          <a className="explore-button" href="#courses">
+            Explore Courses
+            <Icon name="arrow" />
+          </a>
+          <div className="hero-search" role="search">
+            <Icon name="search" />
+            <label className="sr-only" htmlFor="learning-search">Search your learning</label>
+            <input
+              id="learning-search"
+              name="q"
+              type="search"
+              placeholder="Ask anything about your learning..."
+            />
+            <kbd aria-hidden="true">⌘ K</kbd>
           </div>
-        </div>
-        <div className="font-specimen">
-          <span className="specimen inter-font">Ag</span>
-          <div>
-            <h3>Inter</h3>
-            <p>Clean <i>•</i> Modern <i>•</i> Highly legible</p>
+        </section>
+
+        <section className="courses-section" id="courses" aria-labelledby="courses-title">
+          <div className="section-heading">
+            <h2 id="courses-title">All Courses</h2>
+            <a href="#courses">
+              View all courses
+              <Icon name="arrow" />
+            </a>
           </div>
-        </div>
-      </DesignCard>
-
-      <DesignCard title="03 Type Scale" className="type-scale panel">
-        <div className="type-table" role="table" aria-label="Typography scale">
-          <div className="type-row type-header" role="row">
-            <span>Style</span>
-            <span>Font</span>
-            <span>Size / Line Height</span>
-            <span>Weight</span>
-            <span>Use</span>
+          <div className="course-grid">
+            {courses.map((course) => (
+              <article className="course-card" key={course.title}>
+                <CourseLogo kind={course.kind} />
+                <h3>{course.title}</h3>
+                <p>{course.description}</p>
+                <div className="course-meta">
+                  <span><Icon name="levels" />{course.level}</span>
+                  <span><Icon name="clock" />{course.duration}</span>
+                  <span><Icon name="file" />{course.modules}</span>
+                </div>
+              </article>
+            ))}
           </div>
-          {typeScale.map(([style, font, size, weight, use, className]) => (
-            <div className="type-row" role="row" key={style}>
-              <span className={className}>{style}</span>
-              <span>{font}</span>
-              <span>{size}</span>
-              <span>{weight}</span>
-              <span>{use}</span>
-            </div>
-          ))}
-        </div>
-      </DesignCard>
 
-      <DesignCard title="04 Spacing System" className="spacing panel">
-        <p className="panel-caption">Base unit: 4px</p>
-        <div className="spacing-scale">
-          {spacing.map(([size, rem]) => (
-            <div className="space-token" key={size}>
-              <span className="space-bar" style={{ height: `${Number(size)}px` }} />
-              <strong>{size}</strong>
-              <small>({rem})</small>
-            </div>
-          ))}
-        </div>
-      </DesignCard>
-
-      <DesignCard title="05 Radius & Shadows" className="radius-shadow panel">
-        <p className="panel-caption">Radius</p>
-        <div className="radius-row">
-          {radius.map(([size, label, value]) => (
-            <div className="radius-token" key={label}>
-              <span className="radius-shape" style={{ borderRadius: value }} />
-              <strong>{size}</strong>
-              <small>{label}</small>
-            </div>
-          ))}
-        </div>
-        <p className="panel-caption shadow-caption">Shadows</p>
-        <div className="shadow-row">
-          {shadows.map(([name, value, color]) => (
-            <div
-              className="shadow-token"
-              key={name}
-              style={{ boxShadow: `${value} ${color}` }}
-            >
-              <strong>{name}</strong>
-              <span>{value}</span>
-              <small>{color}</small>
-            </div>
-          ))}
-        </div>
-      </DesignCard>
-
-      <DesignCard title="06 Icons" className="icons-panel panel">
-        <p className="panel-caption">Outline Style</p>
-        <div className="icon-row">
-          {outlineIcons.map((name) => <Icon name={name} key={name} />)}
-        </div>
-        <p className="panel-caption filled-caption">Filled Style</p>
-        <div className="icon-row filled-icons">
-          {outlineIcons.map((name) => <Icon name={name} filled key={name} />)}
-        </div>
-        <p className="panel-caption icon-spec-title">Icon Specs</p>
-        <ul className="compact-list">
-          <li>24x24px grid</li>
-          <li>2px stroke width (outline)</li>
-          <li>Rounded line caps</li>
-          <li>Consistent optical balance</li>
-        </ul>
-      </DesignCard>
-
-      <DesignCard title="07 Buttons" className="buttons-panel panel">
-        <div className="button-examples">
-          <div className="button-headings">
-            <span />
-            <span>Primary</span>
-            <span>Secondary</span>
-            <span>Tertiary</span>
-            <span>Text</span>
+          <div className="weekly-callout">
+            <span className="callout-line" />
+            <Icon name="star" />
+            <p>New courses and lessons added every week.</p>
+            <span className="callout-line" />
           </div>
-          {(["Default", "Hover", "Disabled"] as const).map((state) => (
-            <div className={`button-state ${state.toLowerCase()}`} key={state}>
-              <span>{state}</span>
-              <ButtonExample kind="primary">Get Started</ButtonExample>
-              <ButtonExample kind="secondary">Explore Courses</ButtonExample>
-              <ButtonExample kind="tertiary">View Lesson</ButtonExample>
-              <ButtonExample kind="text">Watch Video</ButtonExample>
-            </div>
-          ))}
-        </div>
-        <p className="panel-caption button-spec-title">Button Specs</p>
-        <ul className="compact-list button-specs">
-          <li>Height: 44px (default)</li>
-          <li>Padding: 0 16px (lg), 0 12px (md)</li>
-          <li>Radius: 12px</li>
-          <li>Font: Inter Medium (14–16px)</li>
-        </ul>
-      </DesignCard>
+        </section>
 
-      <DesignCard title="08 Inputs" className="inputs-panel panel">
-        <label className="panel-caption" htmlFor="search-demo">Search / Text Input</label>
-        <div className="search-field">
-          <Icon name="search" />
-          <input id="search-demo" aria-label="Search anything" placeholder="Search anything..." />
-          <kbd>⌘ K</kbd>
+        <div className="bottom-art" aria-hidden="true">
+          <span style={{ height: "64px" }} />
+          <span style={{ height: "100px" }} />
+          <span style={{ height: "130px" }} />
+          <span style={{ height: "165px" }} />
+          <span style={{ height: "110px" }} />
+          <span style={{ height: "72px" }} />
+          <span style={{ height: "46px" }} />
+          <span style={{ height: "80px" }} />
+          <span style={{ height: "118px" }} />
+          <span style={{ height: "160px" }} />
+          <span style={{ height: "190px" }} />
+          <span style={{ height: "116px" }} />
+          <span style={{ height: "88px" }} />
+          <span style={{ height: "142px" }} />
+          <span style={{ height: "156px" }} />
         </div>
-        <label className="panel-caption select-label" htmlFor="sort-demo">Select</label>
-        <select id="sort-demo" defaultValue="relevant">
-          <option value="relevant">Most Relevant</option>
-          <option value="newest">Newest</option>
-        </select>
-        <p className="panel-caption field-spec-title">Field Specs</p>
-        <ul className="compact-list">
-          <li>Height: 44px</li>
-          <li>Radius: 12px</li>
-          <li>Border: 1px solid #E2E8F0</li>
-          <li>Padding: 0 16px</li>
-          <li>Focus: Border color #FB923C</li>
-        </ul>
-      </DesignCard>
-
-      <DesignCard title="09 Badges / Tags" className="badges-panel panel">
-        <div className="badge-examples">
-          <div><span>Video</span><strong className="badge video-badge">VIDEO</strong></div>
-          <div><span>Lesson</span><strong className="badge lesson-badge">LESSON</strong></div>
-          <div><span>Popular</span><strong className="badge popular-badge">POPULAR</strong></div>
-        </div>
-      </DesignCard>
-
-      <DesignCard title="10 Status / Indicators" className="status-panel panel">
-        <div className="status-items">
-          <span><i className="status-ring" />In Progress</span>
-          <span><i className="status-check"><Icon name="check" /></i>Completed</span>
-          <span><i className="status-play"><Icon name="play" filled /></i>Now Playing</span>
-          <span><Icon name="lock" />Locked</span>
-        </div>
-      </DesignCard>
-
-      <DesignCard title="11 Progress Bar" className="progress-panel panel">
-        <div className="progress-content">
-          <div className="progress-track"><span /></div>
-          <span className="progress-label"><strong>35%</strong> complete</span>
-        </div>
-      </DesignCard>
-
-      <DesignCard title="12 Cards" className="cards-panel panel">
-        <div className="card-examples">
-          <div className="card-example">
-            <span className="card-label">Course Card</span>
-            <article className="sample-card course-card">
-              <div className="course-logo">N</div>
-              <div className="course-info">
-                <h3>Next.js for Production</h3>
-                <p>Build scalable, high-performance web applications with Next.js.</p>
-              </div>
-              <div className="card-meta">
-                <span><Icon name="chart" />Intermediate</span>
-                <span><Icon name="clock" />18h 24m</span>
-                <span><Icon name="folder" />12 modules</span>
-              </div>
-            </article>
-          </div>
-          <div className="card-example">
-            <span className="card-label">Lesson Card (Video)</span>
-            <article className="sample-card lesson-video-card">
-              <span className="badge video-badge">VIDEO</span>
-              <h3>Data Fetching in Server Components</h3>
-              <p>Learn how to fetch data on the server using async/await and Next.js best practices.</p>
-              <div className="lesson-card-footer">
-                <span>Lesson 5.1 <b>·</b> 12:45</span>
-                <a href="#video-card"><Icon name="play" />Watch from 12:45</a>
-              </div>
-            </article>
-          </div>
-          <div className="card-example">
-            <span className="card-label">Lesson Card (Lesson)</span>
-            <article className="sample-card lesson-text-card">
-              <span className="badge lesson-badge">LESSON</span>
-              <h3>Data Fetching &amp; Caching</h3>
-              <p>Explore different data fetching methods in Next.js and how to cache and revalidate data for optimal performance.</p>
-              <div className="lesson-card-footer">
-                <span>Module 5</span>
-                <a href="#lesson-card">View lesson <Icon name="external" /></a>
-              </div>
-            </article>
-          </div>
-          <div className="card-example">
-            <span className="card-label">Resource Card</span>
-            <article className="sample-card resource-card">
-              <div className="resource-title"><Icon name="file" /><h3>Caching and Revalidation Guide</h3></div>
-              <p>Deep dive into Next.js caching strategies.</p>
-              <div className="lesson-card-footer"><span>PDF <b>·</b> 1.2 MB</span><Icon name="external" /></div>
-            </article>
-          </div>
-        </div>
-      </DesignCard>
-
-      <section className="panel navigation-panel">
-        <SectionTitle number="13">Navigation</SectionTitle>
-        <div className="navigation-examples">
-          <div className="nav-brand-area">
-            <BrandMark compact />
-            <a className="active" href="#courses">Courses</a>
-            <a href="#learning">My Learning</a>
-          </div>
-          <div className="breadcrumbs-area">
-            <span className="panel-caption">Breadcrumbs</span>
-            <nav aria-label="Breadcrumbs">
-              <a href="#all-courses">All Courses</a>
-              <Icon name="chevron" />
-              <a href="#next-course">Next.js for Production</a>
-              <Icon name="chevron" />
-              <span>Data Fetching &amp; Caching</span>
-            </nav>
-          </div>
-          <div className="pagination-area">
-            <span className="panel-caption">Pagination</span>
-            <nav aria-label="Pagination">
-              <button type="button" aria-label="Previous page"><Icon name="chevron" className="previous" /></button>
-              <button type="button" className="current" aria-current="page">1</button>
-              <button type="button">2</button>
-              <button type="button">3</button>
-              <span>...</span>
-              <button type="button">8</button>
-              <button type="button" aria-label="Next page"><Icon name="chevron" /></button>
-            </nav>
-          </div>
-        </div>
-      </section>
-
-      <section className="panel principles-panel">
-        <SectionTitle number="14">Principles</SectionTitle>
-        <div className="principle-list">
-          <article>
-            <Icon name="eye" />
-            <div><h3>Clarity First</h3><p>Every element should communicate clearly.</p></div>
-          </article>
-          <article>
-            <Icon name="grid" />
-            <div><h3>Consistency</h3><p>Use components and patterns consistently across the platform.</p></div>
-          </article>
-          <article>
-            <Icon name="target" />
-            <div><h3>Focus &amp; Calm</h3><p>Remove noise and help learners focus on what matters.</p></div>
-          </article>
-          <article>
-            <Icon name="accessibility" />
-            <div><h3>Accessible</h3><p>Design with accessibility and inclusivity in mind.</p></div>
-          </article>
-        </div>
-      </section>
+      </div>
     </main>
   );
 }
