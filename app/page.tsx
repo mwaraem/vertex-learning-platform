@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { Suspense } from "react";
 
 type IconName = "bell" | "search" | "arrow" | "levels" | "clock" | "file" | "star";
 
@@ -79,37 +81,6 @@ function Brand() {
   );
 }
 
-function ProfileAvatar() {
-  return (
-    <svg
-      className="profile-avatar"
-      viewBox="0 0 52 52"
-      role="img"
-      aria-label="Profile"
-    >
-      <defs>
-        <clipPath id="avatar-clip">
-          <circle cx="26" cy="26" r="26" />
-        </clipPath>
-        <linearGradient id="avatar-bg" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0" stopColor="#f3e7dd" />
-          <stop offset="1" stopColor="#d9c6b8" />
-        </linearGradient>
-      </defs>
-      <g clipPath="url(#avatar-clip)">
-        <rect width="52" height="52" fill="url(#avatar-bg)" />
-        <path d="M11 53c1-11 7-17 15-17s14 6 15 17" fill="#292827" />
-        <path d="M18 16c0-7 14-9 17 2l-1 13c-2 7-13 8-16 0z" fill="#28201e" />
-        <path d="M20 17c0-5 12-6 13 1l-1 12c-1 5-10 5-12 0z" fill="#d89c7f" />
-        <path d="M19 18c1-8 12-10 16-2l-1 5c-3-1-6-4-7-6-2 3-5 5-9 6z" fill="#302521" />
-        <path d="M22 25h1m6 0h1" stroke="#382923" strokeWidth="1.2" strokeLinecap="round" />
-        <path d="M24 31c1 1 3 1 4 0" stroke="#9b5549" strokeWidth="1" strokeLinecap="round" />
-        <path d="M20 38h12l-6 8z" fill="#f3f0ed" />
-      </g>
-    </svg>
-  );
-}
-
 function CourseLogo({ kind }: { kind: "next" | "docker" | "typescript" }) {
   if (kind === "docker") {
     return (
@@ -173,7 +144,23 @@ export default function Home() {
             <button type="button" className="notification-button" aria-label="Notifications">
               <Icon name="bell" />
             </button>
-            <ProfileAvatar />
+            <Suspense fallback={<span className="auth-placeholder" aria-hidden="true" />}>
+              <div className="clerk-controls">
+                <Show when="signed-out">
+                  <div className="signed-out-actions">
+                    <SignInButton>
+                      <button type="button" className="auth-link">Sign in</button>
+                    </SignInButton>
+                    <SignUpButton>
+                      <button type="button" className="auth-link auth-link-primary">Sign up</button>
+                    </SignUpButton>
+                  </div>
+                </Show>
+                <Show when="signed-in">
+                  <UserButton />
+                </Show>
+              </div>
+            </Suspense>
           </div>
         </header>
 
