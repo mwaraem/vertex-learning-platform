@@ -36,3 +36,33 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 # vertex-learning-platform
+
+## Sanity
+
+The Next.js web app and Sanity Studio are separate workspaces. The Studio lives in
+`studio/`; run each workspace in its own terminal:
+
+```bash
+npm run dev
+npm run studio:dev
+```
+
+Set the web app variables from `.env.example` in the root `.env.local`. Keep
+`SANITY_API_READ_TOKEN` server-only; it must never use a `NEXT_PUBLIC_` prefix.
+Set the Studio's `SANITY_STUDIO_PROJECT_ID` and `SANITY_STUDIO_DATASET` in
+`studio/.env.local` using `studio/.env.example`. The Studio authenticates its
+authors through Sanity and does not use the web app's read token.
+
+The course, lesson, instructor, and category schemas are in `studio/schemaTypes/`.
+Course modules are embedded objects that reference ordered lessons. Lessons do
+not store a parent course; the web data layer finds courses with GROQ reverse
+references.
+
+Useful commands:
+
+```bash
+npm run sanity:typegen
+npm run studio:typecheck
+npm run studio:build
+npm run build
+```
