@@ -107,7 +107,7 @@ export const course = defineType({
       name: 'modules',
       title: 'Modules',
       type: 'array',
-      of: [defineArrayMember({ type: 'courseModule' })],
+      of: [defineArrayMember({ type: 'module' })],
       group: 'curriculum',
       validation: (rule) => rule.required().min(1),
     }),

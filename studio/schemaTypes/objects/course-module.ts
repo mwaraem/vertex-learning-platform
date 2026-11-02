@@ -1,7 +1,7 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const courseModule = defineType({
-  name: 'courseModule',
+  name: 'module',
   title: 'Course module',
   type: 'object',
   fields: [
