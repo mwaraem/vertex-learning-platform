@@ -143,6 +143,52 @@ a {
   margin-left: auto;
 }
 
+.clerk-controls,
+.signed-out-actions {
+  display: flex;
+  align-items: center;
+}
+
+.signed-out-actions {
+  gap: 8px;
+}
+
+.auth-link {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #272727;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 550;
+  white-space: nowrap;
+}
+
+.auth-link:hover {
+  background: #f7f1ed;
+}
+
+.auth-link-primary {
+  background: #e85c24;
+  color: #fff;
+}
+
+.auth-link-primary:hover {
+  background: #d94f19;
+}
+
+.auth-placeholder {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
 .notification-button {
   display: inline-flex;
   width: 32px;
@@ -158,13 +204,6 @@ a {
 .notification-button .icon {
   width: 25px;
   height: 25px;
-}
-
-.profile-avatar {
-  display: block;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
 }
 
 .hero-section {
@@ -635,8 +674,18 @@ a {
   }
 
   .header-actions {
-    gap: 7px;
-    margin-left: 10px;
+    gap: 5px;
+    margin-left: 8px;
+  }
+
+  .signed-out-actions {
+    gap: 2px;
+  }
+
+  .auth-link {
+    min-height: 36px;
+    padding: 0 6px;
+    font-size: 11px;
   }
 
   .notification-button {
@@ -648,9 +697,8 @@ a {
     height: 22px;
   }
 
-  .profile-avatar {
-    width: 40px;
-    height: 40px;
+  .main-nav a:nth-child(2) {
+    display: none;
   }
 
   .hero-section {
